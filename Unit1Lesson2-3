@@ -1,0 +1,72 @@
+-- hottest day in the data set
+select
+	max(MaxTemperatureF) max_temp,
+	date,
+	ZIP
+from
+	weather
+
+--How many trips started at each station?
+select	
+	start_terminal,
+	start_station,
+	count(*) num_trips
+from	
+	trips
+group by 1
+order by 
+	num_trips desc
+	
+-- testing code to see if 11170 rows come back for start_terminal #65
+-- (and the right # of rows return)
+select	
+	start_terminal,
+	start_station
+from	
+	trips
+where 
+	start_terminal = 65
+
+-- What's the shortest trip that happened?
+select	
+	trip_id,
+	min(duration),
+	start_station,
+	end_station
+from	
+	trips
+
+-- test that it's shortest by ordering database
+-- and 22 trips of 60 mins are returned
+select	
+	trip_id,
+	duration,
+	start_station,
+	end_station
+from	
+	trips	
+where duration = 60
+-- order by
+-- 	duration
+
+-- What is the average trip duration, by end station?
+select	
+	avg(duration) average_time,
+	end_station
+from	
+	trips	
+group by
+	end_station
+order by
+	average_time desc
+	
+-- Write some test code to show average time at "Franklin at Maple" is 2068.6
+-- and it works
+select	
+	avg(duration) average_time,
+	end_station
+from	
+	trips	
+where
+	end_station = "Franklin at Maple"
+
